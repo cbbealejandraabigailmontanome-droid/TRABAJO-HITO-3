@@ -1,4 +1,5 @@
 import ProductCard from '../components/ProductCard.jsx';
+import { SiteLink } from '../components/SiteLayout.jsx';
 import { CTA, FeatureCard, GalleryCard, Hero, TestimonialCard } from '../components/HomeSections.jsx';
 import { sampleProducts } from '../data.js';
 
@@ -24,7 +25,7 @@ export default function HomePage({ navigate }) {
   return <main>
     <Hero eyebrow="CAFE, POSTRES Y BUENOS MOMENTOS" title={<>Tu pausa sabe mejor en <span>Coco Latte</span>.</>} description="Un espacio fresco y cercano para disfrutar de sabores preparados con cuidado." image="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80" imageAlt="Cafe recien preparado en Coco Latte" action={{ href: '/menu.html', label: 'Ver nuestro menu' }} navigate={navigate} />
     <section className="section" id="nosotros"><p className="label">NUESTRA ESENCIA</p><h2>Pequenos detalles, grandes sabores.</h2><div className="feature-grid">{features.map((feature) => <FeatureCard key={feature.title} {...feature} />)}</div></section>
-    <section className="specials"><div className="specials-copy"><p className="label">RECOMENDADO DEL DIA</p><h2>Frappes que alegran cualquier tarde.</h2><p>Chocolate, Oreo, fresa y el toque especial de Coco Latte. Elige tu favorito y haz de tu pausa un momento delicioso.</p><a className="button" href="/menu.html" onClick={(event) => navigate(event, '/menu.html')}>Conocer especialidades</a></div><ProductCard product={special} /></section>
+    <section className="specials"><div className="specials-copy"><p className="label">RECOMENDADO DEL DIA</p><h2>Frappes que alegran cualquier tarde.</h2><p>Chocolate, Oreo, fresa y el toque especial de Coco Latte. Elige tu favorito y haz de tu pausa un momento delicioso.</p><SiteLink className="button" href="/menu.html" navigate={navigate}>Conocer especialidades</SiteLink></div><ProductCard product={special} /></section>
     <section className="section testimonials"><p className="label">NUESTRA COMUNIDAD</p><h2>Momentos que nos inspiran.</h2><div className="feature-grid">{testimonials.map((item) => <TestimonialCard key={item.name} {...item} />)}</div></section>
     <section className="gallery section"><p className="label">UN VISTAZO A COCO LATTE</p><h2>Un espacio para disfrutar.</h2><div className="gallery-grid">{gallery.map((item) => <GalleryCard key={item.description} {...item} />)}</div></section>
     <CTA eyebrow="TU PROXIMO ANTOJO TE ESPERA" title="Encuentra tu sabor favorito." action={{ href: '/menu.html', label: 'Explorar el menu' }} navigate={navigate} />

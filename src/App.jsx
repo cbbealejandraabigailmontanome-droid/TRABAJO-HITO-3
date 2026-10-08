@@ -15,6 +15,12 @@ function routeFor(pathname) {
   return 'home';
 }
 
+function appPath(pathname) {
+  const base = import.meta.env.BASE_URL;
+  if (base === '/') return pathname;
+  return `${base}${pathname.replace(/^\/+/, '')}`;
+}
+
 export default function App() {
   const [state, setState] = useState(getInitialState);
   const [pathname, setPathname] = useState(window.location.pathname);
@@ -52,7 +58,7 @@ export default function App() {
       window.location.assign(url.href);
       return;
     }
-    window.history.pushState({}, '', `${url.pathname}${url.search}${url.hash}`);
+    window.history.pushState({}, '', `${appPath(url.pathname)}${url.search}${url.hash}`);
     setPathname(url.pathname);
     if (url.hash) requestAnimationFrame(() => document.querySelector(url.hash)?.scrollIntoView({ behavior: 'smooth' }));
     else window.scrollTo(0, 0);

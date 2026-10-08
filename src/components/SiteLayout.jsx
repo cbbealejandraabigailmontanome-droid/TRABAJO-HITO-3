@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 
+function appHref(href) {
+  const base = import.meta.env.BASE_URL;
+  if (base === '/' || !href.startsWith('/') || href.startsWith('//')) return href;
+  return `${base}${href.slice(1)}`;
+}
+
 export function SiteLink({ href, navigate, children, ...props }) {
-  return <a href={href} onClick={(event) => navigate(event, href)} {...props}>{children}</a>;
+  return <a href={appHref(href)} onClick={(event) => navigate(event, href)} {...props}>{children}</a>;
 }
 
 export function Navbar({ session, onLogout, navigate, checkout = false, dashboard = false, home = false }) {

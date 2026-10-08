@@ -7,7 +7,7 @@ export default function ProductCard({ product, quantity = 1, onQuantityChange, o
   return (
     <article className="product-card">
       <div className={`product-photo ${product.category.toLowerCase()}${dashboard ? ' dashboard-product-photo' : ''}`}>
-        {dashboard ? <i className={`bi ${iconForCategory(product.category)}`} /> : <img src={product.image} alt={product.name} loading="lazy" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = '/img/productos/cafe-latte.jpg'; }} />}
+        {dashboard ? <i className={`bi ${iconForCategory(product.category)}`} /> : <img src={product.image} alt={product.name} loading="lazy" onError={(event) => { event.currentTarget.onerror = null; event.currentTarget.src = `${import.meta.env.BASE_URL}img/productos/cafe-latte.jpg`; }} />}
       </div>
       <div className="product-content">
         {!dashboard && <div className="product-meta"><span>{product.category}</span><span className={available ? 'available' : 'sold-out'}>{available ? `Disponible (${product.stock})` : 'Agotado'}</span></div>}
