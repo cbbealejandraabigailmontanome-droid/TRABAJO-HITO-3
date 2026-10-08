@@ -1,0 +1,30 @@
+.statistics-grid { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.statistics-grid article p { margin: 0; color: var(--turquoise); font-size: 1.35rem; font-weight: 800; overflow-wrap: anywhere; }
+.sales-chart { min-height: 230px; padding: 15px 6px 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 12px; align-items: end; }
+.sales-day { height: 205px; display: grid; grid-template-rows: 20px 1fr 22px; gap: 7px; justify-items: center; text-align: center; }
+.sales-day > span { width: 100%; color: var(--text); font-size: .6rem; white-space: nowrap; }
+.sales-day small { color: var(--text); text-transform: capitalize; }
+.sales-bar-track { width: min(100%, 38px); height: 100%; display: flex; align-items: end; overflow: hidden; border-radius: 5px; background: var(--light); }
+.sales-bar-track i { width: 100%; min-height: 4px; border-radius: 5px 5px 0 0; background: var(--turquoise); }
+.payment-chart-wrap { min-height: 230px; display: flex; align-items: center; justify-content: space-evenly; gap: 24px; }
+.payment-chart { width: 170px; aspect-ratio: 1; border-radius: 50%; position: relative; flex: 0 0 auto; }
+.payment-chart::after { content: ''; position: absolute; inset: 25%; border-radius: 50%; background: white; }
+.payment-legend { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+.payment-legend li { display: grid; grid-template-columns: 12px auto; gap: 0 8px; align-items: center; color: var(--text); }
+.payment-legend li b { grid-column: 2; color: var(--dark); font-size: .8rem; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--turquoise); }
+.legend-1 { background: var(--yellow); }
+.legend-2 { background: var(--orange); }
+.top-products { padding: 55px 0 0; }
+.top-products h2 { font-size: 2rem; }
+.product-photo.dashboard-product-photo { display: grid; place-items: center; }
+.product-photo.dashboard-product-photo i { display: block; color: rgba(255, 255, 255, .9); font-size: 3rem; }
+@media (max-width: 700px) {
+  .sales-chart { gap: 5px; }
+  .sales-day > span { font-size: .48rem; }
+  .payment-chart-wrap { flex-direction: column; padding: 10px; }
+  .payment-chart { width: 140px; }
+  .payment-legend { width: 100%; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .payment-legend li { font-size: .78rem; }
+  .dashboard-panel { padding: 18px; }
+}
