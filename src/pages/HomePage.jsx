@@ -14,16 +14,16 @@ const testimonials = [
   { quote: 'La atencion siempre hace que quiera volver.', name: 'Carla V.', role: 'Cliente frecuente' },
 ];
 const gallery = [
-  { image: 'https://images.unsplash.com/photo-1498804103079-a4f47c5d3d8c?auto=format&fit=crop&w=900&q=80', description: 'Cafes de especialidad' },
-  { image: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=900&q=80', description: 'Postres del dia' },
-  { image: 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=900&q=80', description: 'Momentos compartidos' },
-  { image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=900&q=80', description: 'Bebidas refrescantes' },
+  { image: 'https://images.unsplash.com/photo-1498804103079-a4f47c5d3d8c?auto=format&fit=crop&w=640&q=72', description: 'Cafes de especialidad' },
+  { image: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=640&q=72', description: 'Postres del dia' },
+  { image: 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?auto=format&fit=crop&w=640&q=72', description: 'Momentos compartidos' },
+  { image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=640&q=72', description: 'Bebidas refrescantes' },
 ];
 
 export default function HomePage({ navigate }) {
   const special = { ...sampleProducts[4], variant: 'highlight', badge: 'MAS VENDIDO' };
   return <main>
-    <Hero eyebrow="CAFE, POSTRES Y BUENOS MOMENTOS" title={<>Tu pausa sabe mejor en <span>Coco Latte</span>.</>} description="Un espacio fresco y cercano para disfrutar de sabores preparados con cuidado." image="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=80" imageAlt="Cafe recien preparado en Coco Latte" action={{ href: '/menu.html', label: 'Ver nuestro menu' }} navigate={navigate} />
+    <Hero eyebrow="CAFE, POSTRES Y BUENOS MOMENTOS" title={<>Tu pausa sabe mejor en <span>Coco Latte</span>.</>} description="Un espacio fresco y cercano para disfrutar de sabores preparados con cuidado." image="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=900&q=75" imageAlt="Cafe recien preparado en Coco Latte" action={{ href: '/menu.html', label: 'Ver nuestro menu' }} navigate={navigate} />
     <section className="section" id="nosotros"><p className="label">NUESTRA ESENCIA</p><h2>Pequenos detalles, grandes sabores.</h2><div className="feature-grid">{features.map((feature) => <FeatureCard key={feature.title} {...feature} />)}</div></section>
     <section className="specials"><div className="specials-copy"><p className="label">RECOMENDADO DEL DIA</p><h2>Frappes que alegran cualquier tarde.</h2><p>Chocolate, Oreo, fresa y el toque especial de Coco Latte. Elige tu favorito y haz de tu pausa un momento delicioso.</p><SiteLink className="button" href="/menu.html" navigate={navigate}>Conocer especialidades</SiteLink></div><ProductCard product={special} /></section>
     <section className="section testimonials"><p className="label">NUESTRA COMUNIDAD</p><h2>Momentos que nos inspiran.</h2><div className="feature-grid">{testimonials.map((item) => <TestimonialCard key={item.name} {...item} />)}</div></section>
