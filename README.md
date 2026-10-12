@@ -11,6 +11,8 @@ npm ci
 npm run dev
 ```
 
+Abre la dirección local que muestra Vite (normalmente `http://localhost:5173/`). La ruta base de GitHub Pages solo se usa al compilar para producción.
+
 ## Rutas
 
 La navegacion se resuelve en el cliente con la History API, sin dependencias de router. La aplicacion mantiene las rutas `.html` del proyecto y acepta tambien sus versiones sin extension:

@@ -1,11 +1,8 @@
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
-// https://vite.dev/config/
-export default defineConfig({
-  base: '/TRABAJO-HITO-3/',
+// Use the site root locally and the repository path on GitHub Pages.
+export default defineConfig(({ command }) => ({
+  base: command === 'serve' ? '/' : '/TRABAJO-HITO-3/',
   plugins: [react()],
-  server: {
-    watch: { ignored: ['**/docs/**'] },
-  },
-})
+}))
