@@ -1,16 +1,38 @@
-# React + Vite
+# Coco Latte
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Aplicacion SPA para la cafeteria Coco Latte, construida con React 19 y Vite.
 
-Currently, two official plugins are available:
+## Desarrollo local
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Requiere Node.js 22 o posterior.
 
-## React Compiler
+```sh
+npm ci
+npm run dev
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Rutas
 
-## Expanding the Oxlint configuration
+La navegacion se resuelve en el cliente con la History API, sin dependencias de router. La aplicacion mantiene las rutas `.html` del proyecto y acepta tambien sus versiones sin extension:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- `/` — inicio
+- `/menu.html` — menu
+- `/login.html` — acceso
+- `/checkout.html` — finalizar pedido
+- `/dashboard.html` — panel
+
+Los botones Atrás y Adelante del navegador restauran la vista mediante `popstate`. Las rutas directas y el refresco de una vista funcionan con los archivos de entrada publicados por GitHub Pages.
+
+## Comprobaciones
+
+```sh
+npm run lint
+npm run build
+npm run preview
+```
+
+No hay un script de pruebas automatizadas configurado actualmente.
+
+## GitHub Pages
+
+El workflow `.github/workflows/deploy-pages.yml` compila y despliega `dist` cuando se actualiza `main`. En GitHub, configura **Settings → Pages → Build and deployment → Source → GitHub Actions**. El build usa `/TRABAJO-HITO-3/` como base porque este repositorio se publica como proyecto bajo `github.io`.

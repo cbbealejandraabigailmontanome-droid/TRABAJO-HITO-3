@@ -5,20 +5,38 @@ import MenuPage from './pages/MenuPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import CheckoutPage from './pages/CheckoutPage.jsx';
 import DashboardPage from './pages/DashboardPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 import { getInitialState, saveStored } from './data.js';
 
 function routeFor(pathname) {
-  if (pathname.endsWith('/menu.html')) return 'menu';
-  if (pathname.endsWith('/login.html')) return 'login';
-  if (pathname.endsWith('/checkout.html')) return 'checkout';
-  if (pathname.endsWith('/dashboard.html')) return 'dashboard';
-  return 'home';
+  const base = import.meta.env.BASE_URL;
+  const normalizedBase = base.endsWith('/') ? base.slice(0, -1) : base;
+  let appPathname = pathname;
+  if (base !== '/') {
+    if (pathname === normalizedBase) appPathname = '/';
+    else if (pathname.startsWith(base)) appPathname = `/${pathname.slice(base.length)}`;
+  }
+  const normalizedPath = appPathname.replace(/\/+$/, '') || '/';
+  const routes = {
+    '/': 'home',
+    '/index.html': 'home',
+    '/menu': 'menu',
+    '/menu.html': 'menu',
+    '/login': 'login',
+    '/login.html': 'login',
+    '/checkout': 'checkout',
+    '/checkout.html': 'checkout',
+    '/dashboard': 'dashboard',
+    '/dashboard.html': 'dashboard',
+  };
+  return Object.hasOwn(routes, normalizedPath) ? routes[normalizedPath] : 'not-found';
 }
 
 function appPath(pathname) {
   const base = import.meta.env.BASE_URL;
   if (base === '/') return pathname;
-  return `${base}${pathname.replace(/^\/+/, '')}`;
+  const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+  return `${normalizedBase}${pathname.replace(/^\/+/, '')}`;
 }
 
 export default function App() {
@@ -44,24 +62,33 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const titles = { home: 'Coco Latte | Cafeteria', menu: 'Menu | Coco Latte', login: 'Acceso | Coco Latte', checkout: 'Finalizar pedido | Coco Latte', dashboard: 'Panel | Coco Latte' };
+    const titles = { home: 'Coco Latte | Cafeteria', menu: 'Menu | Coco Latte', login: 'Acceso | Coco Latte', checkout: 'Finalizar pedido | Coco Latte', dashboard: 'Panel | Coco Latte', 'not-found': 'Pagina no encontrada | Coco Latte' };
     document.title = titles[loginRequired ? 'login' : page];
   }, [page, loginRequired]);
 
   const navigate = useCallback((event, href) => {
-    if (event) {
-      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-      event.preventDefault();
-    }
     const url = new URL(href, window.location.href);
-    if (url.origin !== window.location.origin) {
-      window.location.assign(url.href);
+    const webProtocol = url.protocol === 'http:' || url.protocol === 'https:';
+    if (!webProtocol || url.origin !== window.location.origin) {
+      if (!event && webProtocol) window.location.assign(url.href);
       return;
     }
-    window.history.pushState({}, '', `${appPath(url.pathname)}${url.search}${url.hash}`);
-    setPathname(url.pathname);
-    if (url.hash) requestAnimationFrame(() => document.querySelector(url.hash)?.scrollIntoView({ behavior: 'smooth' }));
-    else window.scrollTo(0, 0);
+    if (event) {
+      const link = event.currentTarget;
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      if (link?.hasAttribute('download') || (link?.target && link.target !== '_self')) return;
+      event.preventDefault();
+    }
+    const nextPath = appPath(url.pathname);
+    const nextUrl = `${nextPath}${url.search}${url.hash}`;
+    if (nextUrl === `${window.location.pathname}${window.location.search}${window.location.hash}`) return;
+    window.history.pushState({}, '', nextUrl);
+    setPathname(nextPath);
+    if (url.hash) {
+      requestAnimationFrame(() => document.getElementById(decodeURIComponent(url.hash.slice(1)))?.scrollIntoView({ behavior: 'smooth' }));
+    } else {
+      window.scrollTo(0, 0);
+    }
   }, []);
 
   function addToCart(product, quantity = 1) {
@@ -123,7 +150,7 @@ export default function App() {
       : page === 'menu' ? <MenuPage products={state.products} cart={state.cart} session={state.session} navigate={navigate} onAdd={addToCart} onCartChange={changeCart} onCartClear={() => setState((current) => ({ ...current, cart: [] }))} />
         : page === 'checkout' ? <CheckoutPage cart={state.cart} session={state.session} navigate={navigate} onPlaceOrder={placeOrder} />
           : page === 'dashboard' ? <DashboardPage products={state.products} sales={state.sales} orders={state.orders} onOrderStatusChange={(id, status) => setState((current) => ({ ...current, orders: current.orders.map((order) => order.id === id ? { ...order, status } : order) }))} />
-            : <HomePage navigate={navigate} />}
+            : page === 'home' ? <HomePage navigate={navigate} /> : <NotFoundPage navigate={navigate} />}
     {page !== 'login' && page !== 'checkout' && page !== 'dashboard' && <Footer />}
     {page !== 'login' && !loginRequired && <BackToTop />}
     {notice && page !== 'login' && <div className="purchase-message show" role="status"><i className="bi bi-check-circle-fill" /> {notice}</div>}

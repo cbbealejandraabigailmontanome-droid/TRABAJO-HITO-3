@@ -32,7 +32,7 @@ jobs:
       - name: Build site
         run: npm run build
       - name: Add app route entry points
-        run: for page in menu login checkout dashboard; do cp dist/index.html "dist/$page.html"; done
+        run: for page in menu login checkout dashboard 404; do cp dist/index.html "dist/$page.html"; done
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
