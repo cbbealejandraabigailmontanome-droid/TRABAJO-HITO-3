@@ -40,6 +40,6 @@ Las imágenes del catálogo se sirven en WebP optimizado; los JPEG originales se
 
 ## GitHub Pages
 
-Para conectar Supabase en Pages, agrega en **Settings → Secrets and variables → Actions → Variables** `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` con los valores de tu proyecto. No agregues la clave `service_role` ni credenciales privadas.
+El archivo `.env.production` contiene la URL y la clave `publishable` pública usadas en el build de Pages. La clave está diseñada para el navegador y se limita mediante RLS; nunca agregues `service_role` ni credenciales privadas. Para sustituir la configuración, actualiza los valores de `.env.production`.
 
 El workflow `.github/workflows/deploy-pages.yml` compila y despliega `dist` cuando se actualiza `main`. En GitHub, configura **Settings → Pages → Build and deployment → Source → GitHub Actions**. El build usa `/TRABAJO-HITO-3/` como base porque este repositorio se publica como proyecto bajo `github.io`.

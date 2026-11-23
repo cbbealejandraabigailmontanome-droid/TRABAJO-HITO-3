@@ -5,7 +5,7 @@
 - Aplicación: React 19 + Vite + JavaScript/JSX, npm, Windows x64.
 - Supabase CLI: 2.122.0 como dependencia de desarrollo (`npx supabase`). SDK: `@supabase/supabase-js` 2.118.0.
 - Proyecto Cloud del plan gratuito: activo y enlazado. La referencia del proyecto coincide con el host de `VITE_SUPABASE_URL`; el valor de la clave no se imprime ni se documenta.
-- `.env.local` existe y contiene `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY`; `.gitignore` ignora los archivos `*.local`. No hay `service_role` en el frontend.
+- `.env.local` es local e ignorado por Git. `.env.production` contiene la URL y clave `publishable` pública para que GitHub Pages compile con Supabase; la clave publishable es pública por diseño. No hay `service_role` ni credenciales privadas en el frontend.
 - No se instaló ni utilizó Docker.
 
 ## Cuentas y contraseñas
