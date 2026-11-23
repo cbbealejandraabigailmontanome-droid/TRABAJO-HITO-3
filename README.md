@@ -21,6 +21,7 @@ La navegacion se resuelve en el cliente con la History API, sin dependencias de 
 - `/menu.html` — menu
 - `/login.html` — acceso
 - `/checkout.html` — finalizar pedido
+- `/orders.html` — pedidos de la cuenta autenticada
 - `/dashboard.html` — panel
 
 Los botones Atrás y Adelante del navegador restauran la vista mediante `popstate`. Las rutas directas y el refresco de una vista funcionan con los archivos de entrada publicados por GitHub Pages.
@@ -38,5 +39,7 @@ No hay un script de pruebas automatizadas configurado actualmente.
 Las imágenes del catálogo se sirven en WebP optimizado; los JPEG originales se conservan como respaldo.
 
 ## GitHub Pages
+
+Para conectar Supabase en Pages, agrega en **Settings → Secrets and variables → Actions → Variables** `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` con los valores de tu proyecto. No agregues la clave `service_role` ni credenciales privadas.
 
 El workflow `.github/workflows/deploy-pages.yml` compila y despliega `dist` cuando se actualiza `main`. En GitHub, configura **Settings → Pages → Build and deployment → Source → GitHub Actions**. El build usa `/TRABAJO-HITO-3/` como base porque este repositorio se publica como proyecto bajo `github.io`.

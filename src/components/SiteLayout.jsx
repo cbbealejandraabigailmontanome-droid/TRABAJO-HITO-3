@@ -18,7 +18,7 @@ export function Navbar({ session, onLogout, navigate, checkout = false, dashboar
       <nav aria-label="Navegacion principal">
         {dashboard ? <>
           <SiteLink href="/menu.html" navigate={navigate}>Ver menu</SiteLink>
-          <SiteLink className="button small" href="/" navigate={navigate}>Salir</SiteLink>
+          <button className="button small" type="button" onClick={onLogout}>Cerrar sesion</button>
         </> : checkout ? <>
           <SiteLink href="/" navigate={navigate}>Inicio</SiteLink>
           <SiteLink href="/menu.html" navigate={navigate}>Menu</SiteLink>
@@ -28,13 +28,13 @@ export function Navbar({ session, onLogout, navigate, checkout = false, dashboar
           <SiteLink href="/menu.html" navigate={navigate}>Menu</SiteLink>
           {home && <><SiteLink href="/#nosotros" navigate={navigate}>Nosotros</SiteLink><SiteLink href="/#horario" navigate={navigate}>Horarios</SiteLink></>}
         </>}
-        {session?.role === 'cliente' ? (
+        {session ? (
           <div className={`account-menu${accountOpen ? ' open' : ''}`}>
             <button className="account-button" type="button" aria-expanded={accountOpen} onClick={() => setAccountOpen((open) => !open)}>
               <i className="bi bi-person-circle" /><span>{session.name || session.email?.split('@')[0] || 'Mi cuenta'}</span><i className="bi bi-chevron-down" />
             </button>
             <div className="account-dropdown"><span>{session.email || 'Cliente Coco Latte'}</span>
-              <SiteLink href="/menu.html" navigate={navigate}><i className="bi bi-bag-heart" /> Mis compras</SiteLink>
+              {session.role === 'cliente' ? <SiteLink href="/orders.html" navigate={navigate}><i className="bi bi-bag-heart" /> Mis compras</SiteLink> : <SiteLink href="/dashboard.html" navigate={navigate}><i className="bi bi-speedometer2" /> Panel administrativo</SiteLink>}
               <button type="button" onClick={onLogout}><i className="bi bi-box-arrow-right" /> Cerrar sesion</button>
             </div>
           </div>

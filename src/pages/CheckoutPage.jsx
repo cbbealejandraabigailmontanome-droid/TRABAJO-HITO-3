@@ -13,10 +13,11 @@ export default function CheckoutPage({ cart, session, navigate, onPlaceOrder }) 
   if (!cart.length) return <main className="checkout-page"><p className="label">FINALIZAR PEDIDO</p><h1>Tu pedido, listo para disfrutar.</h1><section className="empty-checkout"><i className="bi bi-bag" /><h2>Tu carrito esta vacio</h2><SiteLink className="button" href="/menu.html" navigate={navigate}>Explorar el menu</SiteLink></section></main>;
 
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  function submit(event) {
+  async function submit(event) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
-    const result = onPlaceOrder({ name: String(form.get('name')).trim(), phone: String(form.get('phone')).trim(), payment: form.get('payment'), type: form.get('type') });
+    setError('');
+    const result = await onPlaceOrder({ name: String(form.get('name')).trim(), phone: String(form.get('phone')).trim(), payment: form.get('payment'), type: form.get('type') });
     if (result.error) setError(result.error);
     else setOrder(result.order);
   }
