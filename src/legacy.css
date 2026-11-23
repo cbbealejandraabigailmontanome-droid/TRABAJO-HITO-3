@@ -72,6 +72,8 @@ nav { display:flex; align-items:center; gap:20px; } nav a { color:var(--dark); f
 .login-card .remember input { display:inline; width:auto; margin-right:6px; }
 .password-field { display:block; position:relative; margin-top:6px; }
 .login-card .password-field input { margin-top:0; padding-right:82px; }
+.password-field input::-ms-reveal,
+.password-field input::-ms-clear { display:none; }
 .password-toggle { position:absolute; top:50%; right:10px; transform:translateY(-50%); padding:4px; border:0; color:var(--turquoise); background:transparent; font:inherit; font-size:.82rem; cursor:pointer; }
 .password-toggle:focus-visible { outline:2px solid var(--turquoise); outline-offset:2px; border-radius:3px; }
 .login-help { text-align:center; font-size:.8rem; margin-top:18px; }
